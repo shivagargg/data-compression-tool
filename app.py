@@ -1,15 +1,8 @@
 import os
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMP_DIR = os.path.join(BASE_DIR, "temp")
-
-os.makedirs(TEMP_DIR, exist_ok=True)
-
-
-from flask import Flask, render_template, request, send_file
 import io
-from huffman import calculate_compression_ratio
+from flask import Flask, render_template, request, send_file
 
+from huffman import calculate_compression_ratio
 from utils import get_frequencies
 from huffman import (
     build_huffman_tree,
@@ -24,7 +17,9 @@ from shannon_fano import (
     generate_shannon_fano_codes
 )
 
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMP_DIR = os.path.join(BASE_DIR, "temp")
+os.makedirs(TEMP_DIR, exist_ok=True)
 app = Flask(__name__)
 
 @app.route('/')
@@ -118,5 +113,3 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
-
-
